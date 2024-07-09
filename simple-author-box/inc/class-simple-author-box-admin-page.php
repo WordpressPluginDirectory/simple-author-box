@@ -5,6 +5,7 @@ class Simple_Author_Box_Admin_Page
 
     private $tab;
     private $options;
+    private $settings;
     private $sections;
     private $views_path;
 

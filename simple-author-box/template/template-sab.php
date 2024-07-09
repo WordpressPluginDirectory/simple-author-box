@@ -90,7 +90,7 @@ if ('' != $author_description || isset($sabox_options['sab_no_description']) && 
         $author_description = wpautop($author_description);
         wpsabox_wp_kses_wf($author_description);
         if ('' == $author_description && is_user_logged_in() && $sabox_author_id == get_current_user_id()) {
-            echo '<a target="_blank" href="' . admin_url() . 'profile.php?#wp-description-wrap">' . esc_html__('Add Biographical Info', 'simple-author-box') . '</a>';
+            echo '<a target="_blank" href="' . esc_url(admin_url()) . 'profile.php?#wp-description-wrap">' . esc_html__('Add Biographical Info', 'simple-author-box') . '</a>';
         }
         echo '</div>';
         echo '</div>';
@@ -122,7 +122,7 @@ if ('' != $author_description || isset($sabox_options['sab_no_description']) && 
 
         if (is_user_logged_in() && current_user_can('manage_options')) {
             echo '<div class="sab-edit-settings">';
-            echo '<a target="_blank" href="' . admin_url() . 'themes.php?page=simple-author-box">' . esc_html__('Settings', 'simple-author-box') . '<i class="dashicons dashicons-admin-settings"></i></a>';
+            echo '<a target="_blank" href="' . esc_url(admin_url()) . 'themes.php?page=simple-author-box">' . esc_html__('Settings', 'simple-author-box') . '<i class="dashicons dashicons-admin-settings"></i></a>';
             echo '</div>';
         }
 
@@ -130,7 +130,7 @@ if ('' != $author_description || isset($sabox_options['sab_no_description']) && 
         $social_links = Simple_Author_Box_Helper::get_user_social_links($sabox_author_id, $show_email);
 
         if (empty($social_links) && is_user_logged_in() && $sabox_author_id == get_current_user_id()) {
-            echo '<a target="_blank" href="' . admin_url() . 'profile.php?#sabox-social-table">' . esc_html__('Add Social Links', 'simple-author-box') . '</a>';
+            echo '<a target="_blank" href="' . esc_url(admin_url()) . 'profile.php?#sabox-social-table">' . esc_html__('Add Social Links', 'simple-author-box') . '</a>';
         }
 
         if (isset($sabox_options['sab_hide_socials']) && '0' == $sabox_options['sab_hide_socials'] && $show_social_icons && !empty($social_links)) { // hide social icons div option

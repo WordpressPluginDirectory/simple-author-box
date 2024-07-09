@@ -179,7 +179,7 @@ class Simple_Author_Box_Previewer
         echo '</div>'; // about tab
 
         echo '</div>'; // end of saboxplugin-wrap div
-        echo '<div class="note">' .  __('<strong>Note:</strong> By default our Author Box will take the current font family and color from your theme. Basically if you don\'t select a font or a color from the plugin\'s settings the font and color of the Author Box will be different on the front-end than in the previewer.', 'simple-author-box') . '</div>';
+        wpsabox_wp_kses_wf('<div class="note">' .  __('<strong>Note:</strong> By default our Author Box will take the current font family and color from your theme. Basically if you don\'t select a font or a color from the plugin\'s settings the font and color of the Author Box will be different on the front-end than in the previewer.', 'simple-author-box') . '</div>');
     }
 
     private function generate_inline_css()

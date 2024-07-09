@@ -1,14 +1,14 @@
 === Simple Author Box ===
 Contributors: WebFactory
-Tags: author box, responsive author box, author profile fields, author social icons, author bio, author description, author profile, post author, guest author, guest posts, guest author box, block
+Tags: author box, author profile, author social icons, author bio, guest author
 Requires at least: 4.6
 Requires PHP: 5.6
-Tested up to: 6.4
-Stable tag: 2.52
+Tested up to: 6.6
+Stable tag: 2.54
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Add a responsive author box with social icons to any post. Great author box for any site!
+Add a responsive author box or guest author box with social icons to any post. Great author box for any site!
 
 == Description ==
 
@@ -53,6 +53,14 @@ Simple Author Box does not track, collect or process any user data. If you opt t
 
 
 == Changelog ==
+= 2.54 =
+* 2024-07-08
+* minor security fixes
+
+= 2.53 =
+* 2024-03-27
+* WordPress 6.5 and PHP 8.2 compatibility
+
 = 2.52 =
 * 2023-07-16
 * Minor bug fixes
@@ -374,6 +382,10 @@ You can get free support either here on the support forums: <a href="https://wor
 
 You can say thank you by leaving us a review here: <a href="https://wordpress.org/support/plugin/simple-author-box/reviews/#new-post">https://wordpress.org/support/plugin/simple-author-box/reviews/#new-post</a>
 Or you can give back by recommending this amazing plugin to your friends!
+
+= How can I report security bugs? =
+
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/simple-author-box)
 
 
 == Screenshots ==
