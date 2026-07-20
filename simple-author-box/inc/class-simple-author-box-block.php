@@ -100,10 +100,7 @@ class Simple_Author_Box_Block {
 	}
 
 	public function get_author() {
-		$author_id = absint($_POST['author_ID']);
-		$nonce     = $_POST['nonce'];
-
-		if ( ! wp_verify_nonce( $nonce, 'sab_nonce' ) ) {
+        if ( !isset($_POST['nonce']) || !wp_verify_nonce( sanitize_text_field(wp_unslash($_POST['nonce'])), 'sab_nonce' ) ) {
 			wp_send_json_error();
 			die();
 		}
@@ -113,6 +110,13 @@ class Simple_Author_Box_Block {
 			die();
 		}
 
+        if(!isset($_POST['author_ID'])){
+            wp_send_json_error();
+			die();
+        }
+
+        $author_id = absint($_POST['author_ID']);
+		
 		$author      = get_user_by( 'ID', $author_id );
 		$author_meta = get_user_meta( $author_id );
 

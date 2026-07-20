@@ -154,10 +154,6 @@ if ('' != $author_description || isset($sabox_options['sab_no_description']) && 
                     $social_link = 'https://t.me/' . $social_link;
                 }
 
-                if ('skype' == $social_platform) {
-                    $social_link = 'skype:' . $social_link . '?call';
-                }
-
                 if (!empty($social_link)) {
                     wpsabox_wp_kses_wf(Simple_Author_Box_Helper::get_sabox_social_icon($social_link, $social_platform));
                 }

@@ -1199,11 +1199,11 @@ body .simple-author-box-wrap .wp-badge {
 
 #sidebar-box-ad {
   background-color: #463a70;
-  padding: 20px 16px;
+  padding: 15px 0px;
   color: white;
   text-align: center;
-  line-height: 2;
-  font-size: 14px;
+  line-height: 1.5;
+  font-size: 16px;
   margin-bottom: 20px;
   transition: transform 0.2s;
 }
@@ -1277,6 +1277,17 @@ option.pro-option {
   font-weight: bold;
 }
 
+.ui-dialog {
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.ui-dialog .ui-dialog-content {
+    overflow-y: auto !important;
+    flex-grow: 1;
+}
+
 .sab-pro-dialog .ui-dialog-titlebar {
   display: none;
 }
@@ -1297,6 +1308,17 @@ option.pro-option {
   background: #f8f8f8;
   margin: 0 -16px -16px -16px;
   padding: 20px;
+}
+
+.sab-pro-dialog .upsell-footer-2 {
+  padding: 10px;
+  background-color: #328ad2;
+  color: white;
+  margin: 0 -16px 0 -16px;
+}
+
+.sab-pro-dialog .upsell-footer-2 a {
+  color: white;
 }
 
 .sab-pro-dialog .logo span {

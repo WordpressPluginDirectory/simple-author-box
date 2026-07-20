@@ -829,8 +829,7 @@ class Simple_Author_Box_Admin_Page
             <div class="sabox-left">
 
                 <div class="open-upsell" data-feature="sidebar-box" id="sidebar-box-ad"><a href="#" class="open-upsell" data-feature="sidebar-box">
-                      Get <b>PRO</b> for only <del>$59</del> $39!<br>
-                      <span class="dashicons dashicons-star-filled"></span> Lifetime license <span class="dashicons dashicons-star-filled"></span></a>
+                      <span class="dashicons dashicons-star-filled"></span><br>Get <b>PRO</b> for only $9.99</a>
                     </div>
                 <div class="epfw-tab-wrapper nav-tab-wrapper wp-clearfix">
                         <?php foreach ($this->sections as $id => $section) { ?>
@@ -925,7 +924,7 @@ class Simple_Author_Box_Admin_Page
 
       $out .= '<div class="center logo"><a href="https://wpauthorbox.com/?ref=sab-free-pricing-table" target="_blank"><img src="' . SIMPLE_AUTHOR_BOX_ASSETS . 'img/simple-author-box-logo.png' . '" alt="WP Author Box PRO" title="WP Author Box PRO"></a><br>';
 
-      $out .= '<span>Limited PRO Launch Discount - <b>all prices are LIFETIME</b>! Pay once &amp; use forever!</span>';
+      $out .= '<span>Limited PRO Launch Discount - <b>LIFETIME prices</b>! Pay once &amp; use forever!</span>';
       $out .= '</div>';
 
       $out .= '<table id="sab-pro-table">';
@@ -936,7 +935,7 @@ class Simple_Author_Box_Admin_Page
       $out .= '</tr>';
 
       $out .= '<tr class="prices">';
-      $out .= '<td class="center"><del>$39 /year</del><br><span>$59</span> /lifetime</td>';
+      $out .= '<td class="center"><del>$49 /year</del><br><span>$59</span> /lifetime</td>';
       $out .= '<td class="center"><del>$89 /year</del><br><span>$69</span> /lifetime</td>';
       $out .= '<td class="center"><del>$199 /year</del><br><span>$99</span> /lifetime</td>';
       $out .= '</tr>';
@@ -1002,14 +1001,15 @@ class Simple_Author_Box_Admin_Page
       $out .= '</tr>';
 
       $out .= '<tr>';
-      $out .= '<td><a class="button button-buy" data-href-org="https://wpauthorbox.com/buy/?product=personal-lifetime&ref=pricing-table" href="https://wpauthorbox.com/buy/?product=personal-lifetime&ref=pricing-table" target="_blank">lifetime license<br>$59 - BUY NOW</a>
-      <br>- or -<br>
-      <a class="button-buy" data-href-org="https://wpauthorbox.com/buy/?product=personal-yearly&ref=pricing-table" href="https://wpauthorbox.com/buy/?product=personal-yearly&ref=pricing-table" target="_blank">$39 <small>/year</small></a></td>';
-      $out .= '<td><a class="button button-buy" data-href-org="https://wpauthorbox.com/buy/?product=team-lifetime&ref=pricing-table" href="https://wpauthorbox.com/buy/?product=team-lifetime&ref=pricing-table" target="_blank">lifetime license<br>$69 - BUY NOW</a></td>';
-      $out .= '<td><a class="button button-buy" data-href-org="https://wpauthorbox.com/buy/?product=agency-launch&ref=pricing-table" href="https://wpauthorbox.com/buy/?product=agency-launch&ref=pricing-table" target="_blank">lifetime license<br>$99 - BUY NOW</a></td>';
+      $out .= '<td><a class="button button-buy" data-href-org="https://wpauthorbox.com/buy/?product=personal-lifetime&ref=pricing-table" href="https://wpauthorbox.com/buy/?product=personal-lifetime&ref=pricing-table" target="_blank">Lifetime license<br>$59 - BUY NOW</a>
+      </td>';
+      $out .= '<td><a class="button button-buy" data-href-org="https://wpauthorbox.com/buy/?product=team-lifetime&ref=pricing-table" href="https://wpauthorbox.com/buy/?product=team-lifetime&ref=pricing-table" target="_blank">Lifetime license<br>$69 - BUY NOW</a></td>';
+      $out .= '<td><a class="button button-buy" data-href-org="https://wpauthorbox.com/buy/?product=agency-launch&ref=pricing-table" href="https://wpauthorbox.com/buy/?product=agency-launch&ref=pricing-table" target="_blank">Lifetime license<br>$99 - BUY NOW</a></td>';
       $out .= '</tr>';
 
       $out .= '</table>';
+
+      $out .= '<div class="center upsell-footer-2">Need the plugin only for a <b>short period of time</b>? <a class="button-buy" data-href-org="https://wpauthorbox.com/buy/?product=personal-monthly&ref=pricing-table" href="https://wpauthorbox.com/buy/?product=personal-monthly&ref=pricing-table" target="_blank"><b>Get it for ONLY $9.99</b><small> /month</small></a> &amp; cancel any time!</div>';
 
       $out .= '<div class="center footer"><b>100% No-Risk Money Back Guarantee!</b> If you don\'t like the plugin over the next 7 days, we will happily refund 100% of your money. No questions asked! Payments are processed by our merchant of records - <a href="https://paddle.com/" target="_blank">Paddle</a>.</div></div>';
 
@@ -1019,12 +1019,16 @@ class Simple_Author_Box_Admin_Page
     // validate import file after upload
     public function validate_import_file()
     {
+        if (isset($_POST['sabox_plugin_settings_page']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['sabox_plugin_settings_page'])), 'sabox-plugin-settings')) {
+
+        }
+
         if (empty($_POST) || empty($_FILES['sab_settings_import']) || empty($_FILES['sab_settings_import']['tmp_name']) ) {
             return new WP_Error(1, 'No import file uploaded.');
         }
 
         $plugin_name = 'Simple Author Box';
-        $uploaded_file = $_FILES['sab_settings_import'];
+        $uploaded_file = sanitize_file_name($_FILES['sab_settings_import']);
 
         if (mime_content_type($uploaded_file['tmp_name']) == 'text/plain' && substr($uploaded_file['name'], -4, 4) != '.txt') {
             return new WP_Error(1, 'Please upload a <i>TXT</i> file generated by ' . $plugin_name . ' plugin.');
@@ -1052,7 +1056,7 @@ class Simple_Author_Box_Admin_Page
 
     public function save_settings()
     {
-        if (isset($_POST['sabox_plugin_settings_page']) && wp_verify_nonce($_POST['sabox_plugin_settings_page'], 'sabox-plugin-settings') && isset($_POST['submit-import'])) { // import settings
+        if (isset($_POST['sabox_plugin_settings_page']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['sabox_plugin_settings_page'])), 'sabox-plugin-settings') && isset($_POST['submit-import'])) { // import settings
             unset($_POST['submit-import']);
 
             $import_data = $this->validate_import_file();
@@ -1065,9 +1069,16 @@ class Simple_Author_Box_Admin_Page
                 set_transient('sab_error_msg', '<div class="sab-alert sab-alert-info"><strong>Settings have been imported.</strong><button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></div>', 1);
                 wp_safe_redirect(admin_url('/themes.php?page=simple-author-box'));
             }
-        } else if (isset($_POST['sabox_plugin_settings_page']) && wp_verify_nonce($_POST['sabox_plugin_settings_page'], 'sabox-plugin-settings')) {
-            $settings = isset($_POST['sabox-settings']) ? $_POST['sabox-settings'] : array();
+        } else if (isset($_POST['sabox_plugin_settings_page']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['sabox_plugin_settings_page'])), 'sabox-plugin-settings')) {
+           if(isset($_POST['sabox-settings'])){
+                $settings = wp_unslash($_POST['sabox-settings']); //phpcs:ignore
+                array_walk_recursive($settings, 'sanitize_text_field');
+            } else {
+                $settings = array();
+            }
+
             $groups   = array();
+
 
             foreach ($this->settings as $tab => $setting_fields) {
                 foreach ($setting_fields as $key => $setting) {

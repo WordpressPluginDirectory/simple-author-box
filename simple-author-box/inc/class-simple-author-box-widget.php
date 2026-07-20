@@ -39,6 +39,10 @@ class Simple_Author_Box_Widget_LITE extends WP_Widget {
             }
         }
 
+        echo '<style type="text/css">';
+        wpsabox_wp_kses_wf(Simple_Author_Box_Helper::generate_inline_css());
+        echo '</style>';
+
         wpsabox_wp_kses_wf($args['before_widget']);
         if ( '' != $instance['title'] ) {
             wpsabox_wp_kses_wf($args['before_title'] . esc_html($instance['title']) . $args['after_title']);

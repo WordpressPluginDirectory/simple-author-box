@@ -72,12 +72,13 @@ final class SAB_Elementor_Check {
      * @access public
      */
     public function admin_notice_minimum_elementor_version() {
-        if (isset($_GET['activate'])) {
-            unset($_GET['activate']);
+         // phpcs:ignore as no nonce check is needed for this notice
+        if (isset($_GET['activate'])) { // phpcs:ignore
+            unset($_GET['activate']); 
         }
 
-        $message = sprintf(
-            esc_html__('"%1$s" requires "%2$s" version %3$s or greater.', 'simple-author-box'),
+        /* translators: %1$s is replaced with the widget name, %2$s with Elementor name and %3$s with minimum elementor version */
+        $message = sprintf(esc_html__('"%1$s" requires "%2$s" version %3$s or greater.', 'simple-author-box'),
             '<strong>' . esc_html__('Simple Author Box Elementor widget', 'simple-author-box') . '</strong>',
             '<strong>' . esc_html__('Elementor', 'simple-author-box') . '</strong>',
             self::MINIMUM_ELEMENTOR_VERSION
@@ -95,12 +96,13 @@ final class SAB_Elementor_Check {
      * @access public
      */
     public function admin_notice_minimum_php_version() {
-        if (isset($_GET['activate'])) {
-            unset($_GET['activate']);
+        // phpcs:ignore as no nonce check is needed for this notice
+        if (isset($_GET['activate'])) { // phpcs:ignore
+            unset($_GET['activate']); 
         }
 
-        $message = sprintf(
-            esc_html__('"%1$s" requires "%2$s" version %3$s or greater.', 'simple-author-box'),
+        /* translators: %1$s is replaced with the widget name, %2$s with the PHP name and %3$s with minimum elementor version */
+        $message = sprintf(esc_html__('"%1$s" requires "%2$s" version %3$s or greater.', 'simple-author-box'),
             '<strong>' . esc_html__('Simple Author Box Elementor widget', 'simple-author-box') . '</strong>',
             '<strong>' . esc_html__('PHP', 'simple-author-box') . '</strong>',
             self::MINIMUM_PHP_VERSION

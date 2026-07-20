@@ -134,16 +134,18 @@ class Simple_Author_Box_User_Profile {
     }
 
     public function save_user_profile($user_id) {
-        if (!isset($_POST['sabox-profile-nonce']) || !wp_verify_nonce($_POST['sabox-profile-nonce'], 'sabox-profile-nonce')) {
+        if (!isset($_POST['sabox-profile-nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['sabox-profile-nonce'])), 'sabox-profile-nonce')) {
             return;
         }
 
         if (isset($_POST['sabox-social-icons']) && isset($_POST['sabox-social-links'])) {
+            $sabox_social_links = array_map('sanitize_text_field', wp_unslash($_POST['sabox-social-links']));
+            $sabox_social_icons = array_map('sanitize_text_field', wp_unslash($_POST['sabox-social-icons']));
 			$social_platforms = apply_filters( 'sabox_social_icons', Simple_Author_Box_Helper::$social_icons );
 			$social_links     = array();
-			foreach ( $_POST['sabox-social-links'] as $index => $social_link ) {
+			foreach ( $sabox_social_links as $index => $social_link ) {
 				if ( $social_link ) {
-					$social_platform = isset( $_POST['sabox-social-icons'][ $index ] ) ? $_POST['sabox-social-icons'][ $index ] : false;
+					$social_platform = isset( $sabox_social_icons[ $index ] ) ? $sabox_social_icons[ $index ] : false;
 					if ( $social_platform && isset( $social_platforms[ $social_platform ] ) ) {
 						$social_links[$social_platform] = sanitize_text_field($social_link);
 					}
@@ -161,7 +163,7 @@ class Simple_Author_Box_User_Profile {
         }
 
         if (isset($_POST['sabox-custom-image']) && '' != $_POST['sabox-custom-image']) {
-            update_user_meta($user_id, 'sabox-profile-image', esc_url_raw($_POST['sabox-custom-image']));
+            update_user_meta($user_id, 'sabox-profile-image', esc_url_raw(wp_unslash($_POST['sabox-custom-image'])));
         } else {
             delete_user_meta($user_id, 'sabox-profile-image');
         }

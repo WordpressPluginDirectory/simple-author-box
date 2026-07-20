@@ -3,8 +3,8 @@ Contributors: WebFactory
 Tags: author box, author profile, author social icons, author bio, guest author
 Requires at least: 4.6
 Requires PHP: 5.6
-Tested up to: 6.6
-Stable tag: 2.54
+Tested up to: 7.0
+Stable tag: 2.61
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,6 +13,8 @@ Add a responsive author box or guest author box with social icons to any post. G
 == Description ==
 
 <a href="https://wpauthorbox.com/">Simple Author Box</a> adds a responsive author box at the end of your posts, showing the author name, author gravatar and author description - author bio. It also adds over 30 social profile fields on WordPress user profile screen, allowing to display the author social icons in the author box.
+
+**Having problems with spam, bots, or AI scrapers? Have a look at our <a href="https://wordpress.org/plugins/advanced-google-recaptcha/">free Captcha plugin</a> used on over 200,000 sites.**
 
 = Main Features =
 
@@ -53,6 +55,32 @@ Simple Author Box does not track, collect or process any user data. If you opt t
 
 
 == Changelog ==
+= 2.61 =
+* 2026-07-19
+* Minor fixes
+
+= 2.60 =
+* 2026-05-21
+* Minor fixes
+
+= 2.59 =
+* 2025-07-31
+* Removed dead social networks
+
+= 2.58 =
+* 2025-05-19
+* Fixed bug with social links formatting
+
+= 2.56 =
+* 2025-05-05
+* Updated Twitter icon to X
+* Added new icons for BlueSky, TikTok and Patreon
+
+= 2.55 =
+* 2025-04-15
+* fixed Simple Author Box Widget CSS issue
+* minor security fixes
+
 = 2.54 =
 * 2024-07-08
 * minor security fixes

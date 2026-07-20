@@ -28,12 +28,6 @@ class Simple_Author_Box
         register_activation_hook(SIMPLE_AUTHOR_BOX_SLUG, array($this, 'activate_plugin'));
         add_action('in_admin_footer', array($this, 'admin_footer_js'));
 
-        if (isset($_GET['sabox-disable-admin-bar'])) {
-            remove_action('wp_head', '_admin_bar_bump_cb');
-            add_filter('show_admin_bar', '__return_false', 1000);
-            add_action('wp_print_footer_scripts', array($this, 'sab_picker_footer_js'));
-        }
-
         add_filter('admin_footer_text', array($this, 'admin_footer_text'));
 
         $current_version = $this->get_plugin_version();
@@ -306,7 +300,6 @@ class Simple_Author_Box
         add_shortcode('simple-author-box', array($this, 'shortcode'));
         add_filter('sabox_hide_social_icons', array($this, 'show_social_media_icons'), 10, 2);
         add_filter('sabox_check_if_show', array($this, 'check_if_show_archive'), 10);
-        add_action('wp_enqueue_scripts', array($this, 'sab_load_scripts'), 10);
 
         if ('0' == $this->options['sab_autoinsert']) {
             add_filter('the_content', 'wpsabox_author_box');
@@ -326,24 +319,13 @@ class Simple_Author_Box
         }
     }
 
-
-
-    public function sab_load_scripts($hook)
-    {
-        wp_enqueue_script('jquery');
-
-        if (isset($_GET['sabox-disable-admin-bar'])) {
-            wp_register_script('sabox-picker', SIMPLE_AUTHOR_BOX_ASSETS . 'js/sabox-picker.js', array('jquery'), $this->get_plugin_version());
-            wp_localize_script('sabox-picker', 'sabox', array('visual_picker' => isset($_GET['sabox-disable-admin-bar'])));
-            wp_enqueue_script('sabox-picker');
-        }
-    }
-
-
     public function settings_link($links)
     {
         if (is_array($links)) {
-            $sab = sprintf('<a href="%s">%s</a>', admin_url('themes.php?page=simple-author-box'), __('Configure Author Box', 'simple-author-box'));
+            $sab = sprintf('<a href="%s">%s</a>', admin_url('themes.php?page=simple-author-box'), __('Configure', 'simple-author-box'));
+            $buy = sprintf('<a href="%s"><b>%s</b></a>', admin_url('themes.php?page=simple-author-box#get-pro'), __('Get PRO', 'simple-author-box'));
+
+            array_unshift($links, $buy);
             array_unshift($links, $sab);
         }
 
@@ -401,14 +383,6 @@ class Simple_Author_Box
                 SIMPLE_AUTHOR_BOX_VERSION,
                 true
             );
-
-            $latest_post = get_posts("post_type=post&numberposts=1");
-            if(!empty($latest_post)) {
-                $sabox_admin['wp_url'] = get_permalink($latest_post[0]->ID) . '?sabox-disable-admin-bar=1';
-            } else {
-                $sabox_admin['wp_url'] = home_url() . '?sabox-disable-admin-bar=1';
-            }
-
 
             $sabox_admin['sab_is_plugin_page'] = true;
 
